@@ -24,7 +24,7 @@ export default function HeroSlider({ movies }) {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        <div>
+        <div className="h-full">
           {movies.map((movie, i) => (
             <>
               <SwiperSlide key={i}>

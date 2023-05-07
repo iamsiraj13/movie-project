@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const MasterLayout = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Header />
       <main>
         <Outlet />

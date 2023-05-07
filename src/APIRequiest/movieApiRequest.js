@@ -17,6 +17,8 @@ import {
   getMoviePending,
   getMovieReject,
   getMovieSuccess,
+  getPersonsPending,
+  getPersonsSuccess,
 } from "../redux/stateSlice/movieSlice";
 
 /*=========================================== 
@@ -68,7 +70,6 @@ export const getCastByMovie = (id) => {
   return axios
     .get(url)
     .then((res) => {
-      console.log(res.data);
       store.dispatch(getCastByMovieSuccess(res.data));
     })
     .catch((error) => {
@@ -92,6 +93,29 @@ export const getCommentsByMovie = (id) => {
     })
     .catch((error) => {
       store.dispatch(getCommentsByMovieReject(error.message));
+      console.log(error);
+      return false;
+    });
+};
+/*=========================================== 
+*  get persons 
+ ============================================*/
+
+export const getPerson = () => {
+  store.dispatch(getPersonsPending());
+  let url = `${BASE_URL}/get_person/`;
+  // console.log(cast_id + " ");
+  // const ID = cast_id.map((castid) => castid.id);
+
+  return axios
+    .get(url)
+    .then((res) => {
+      // const result = res.data.filter((cast) => cast.id === ID);
+      // console.log(result);
+      store.dispatch(getPersonsSuccess(res.data));
+    })
+    .catch((error) => {
+      store.dispatch(getPerson(error.message));
       console.log(error);
       return false;
     });

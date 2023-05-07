@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : null;
+
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   const menuItems = (
     <>
       <li>
@@ -23,7 +32,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 px-20 shadow-md py-4">
+      <div className="navbar bg-base-100   shadow-md py-4">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -54,7 +63,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="navbar-start">
+        <div className="navbar-start hidden sm:block">
           <input
             type="text"
             placeholder="Search"
@@ -66,17 +75,29 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{menuItems}</ul>
         </div>
 
-        <div className="navbar-end flex flex-row gap-4">
-          <button>
-            <Link to="/login" className="font-semibold">
-              Login
-            </Link>
-          </button>
-          <button>
-            <Link to="/register" className="font-semibold">
-              Sign Up
-            </Link>
-          </button>
+        <div className="navbar-end flex flex-row gap-4 pr-2">
+          {token ? (
+            <>
+              <button onClick={logOut}>
+                <Link to="/" className="font-semibold">
+                  Logout
+                </Link>
+              </button>
+            </>
+          ) : (
+            <>
+              <button>
+                <Link to="/login" className="font-semibold">
+                  Login
+                </Link>
+              </button>
+              <button>
+                <Link to="/register" className="font-semibold">
+                  Sign Up
+                </Link>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>

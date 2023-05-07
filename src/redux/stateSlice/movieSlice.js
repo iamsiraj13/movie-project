@@ -5,6 +5,7 @@ const initialState = {
   movieDetails: "",
   cast: [],
   comments: [],
+  persons: [],
   loader: false,
   error: "",
 };
@@ -13,7 +14,7 @@ export const movieSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    // get all movies
+    //=================== get all movies ==================
     getMoviePending: (state) => {
       state.loader = true;
     },
@@ -26,7 +27,7 @@ export const movieSlice = createSlice({
       state.error = action.payload;
     },
 
-    // get movie detais
+    //=============== get movie detais ==================
     getMovieDetailsPending: (state) => {
       state.loader = true;
     },
@@ -38,7 +39,7 @@ export const movieSlice = createSlice({
       state.loader = false;
       state.error = action.payload;
     },
-    // get cast by movies
+    //================ get cast by movies ================
     getCastByMoviePending: (state) => {
       state.loader = true;
     },
@@ -50,7 +51,7 @@ export const movieSlice = createSlice({
       state.loader = false;
       state.error = action.payload;
     },
-    // get cast by movies
+    //=========== get cast by movies ===============
     getCommentsByMoviePending: (state) => {
       state.loader = true;
     },
@@ -59,6 +60,18 @@ export const movieSlice = createSlice({
       state.comments = action.payload;
     },
     getCommentsByMovieReject: (state, action) => {
+      state.loader = false;
+      state.error = action.payload;
+    },
+    //=========== get cast by movies ===============
+    getPersonsPending: (state) => {
+      state.loader = true;
+    },
+    getPersonsSuccess: (state, action) => {
+      state.loader = false;
+      state.persons = action.payload;
+    },
+    getPersonsReject: (state, action) => {
       state.loader = false;
       state.error = action.payload;
     },
@@ -79,6 +92,9 @@ export const {
   getCommentsByMoviePending,
   getCommentsByMovieSuccess,
   getCommentsByMovieReject,
+  getPersonsPending,
+  getPersonsSuccess,
+  getPersonsReject,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

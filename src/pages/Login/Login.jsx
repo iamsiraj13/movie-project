@@ -1,13 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../utils/config";
 // import { useDispatch } from "react-redux";
 // import { userLogin } from "../../components/feature/slice/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -21,12 +22,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   const result = axios.post("http://192.168.50.246/mv/mv/login/", state);
-    //   navigate("/");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const result = await axios.post(`${BASE_URL}/login/`, state);
+      localStorage.setItem("token", result.data.token);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -45,17 +47,17 @@ const Login = () => {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Email address
+                Username
               </label>
               <div className="mt-2">
                 <input
                   onChange={handleInput}
                   id="email"
-                  name="email"
-                  type="email"
+                  name="username"
+                  type="text"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -77,7 +79,7 @@ const Login = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
