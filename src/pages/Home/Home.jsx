@@ -13,24 +13,53 @@ const Home = () => {
 
   // const getMovieByGenre = async () => {
   //   try {
-  //     const res = await axios.get(`${BASE_URL}/get_movie_by_genre/1`);
+  //     const res = await axios.get(`${BASE_URL}/get_movie_by_genre/3`);
   //     const ids = res.data.map((obj) => {
   //       return obj.id;
   //     });
 
+  //     let users = [];
+  //     let promises = [];
   //     for (let i = 0; i < ids.length; i++) {
-  //       setTimeout(async () => {
-  //         const res = await axios.get(`${BASE_URL}/get_movie_by_id/${ids[i]}`);
-  //         console.log(res.data);
-  //       }, 2000);
+  //       promises.push(
+  //         axios
+  //           .get(BASE_URL + "/get_movie_by_id/" + ids[i])
+  //           .then((response) => {
+  //             // do something with response
+  //             users.push(response.data);
+  //           })
+  //       );
   //     }
+  //     Promise.all(promises).then(() => console.log(users));
+
   //   } catch (error) {
   //     console.log(error);
   //   }
   // };
   // console.log(movieId);
+
+  // async function apiCalls() {
+  //   const calls = [1, 2, 3, 4, 5];
+  //   for (let call of calls) {
+  //     const result = await axios.get(`https://dummyjson.com/products/${call}`);
+  //     console.log(result.data);
+  //   }
+  // }
+
+  // async function fetchData() {
+  //   const data = [];
+  //   const arr = [1, 2, 3, 4, 5, 6];
+  //   for (let i = 1; i <= arr.length; i++) {
+  //     const response = await axios.get(`https://dummyjson.com/products/${i}`);
+  //     data.push(response.data);
+  //   }
+  //   console.log(data);
+  // }
+
   useEffect(() => {
+    // apiCalls();
     getMovies();
+    // fetchData();
     // getMovieByGenre();
   }, []);
 
