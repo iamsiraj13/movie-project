@@ -8,59 +8,63 @@ import { BASE_URL } from "../../utils/config";
 import { useState } from "react";
 
 const Home = () => {
-  const [movieId, setMovieId] = useState([]);
-  const { movies, loader } = useSelector((state) => state.movies);
+  const { movies } = useSelector((state) => state.movies);
+  const [actionMovie, setActionMovie] = useState([]);
+  const [dramaMovie, setDramaMovie] = useState([]);
 
-  // const getMovieByGenre = async () => {
-  //   try {
-  //     const res = await axios.get(`${BASE_URL}/get_movie_by_genre/3`);
-  //     const ids = res.data.map((obj) => {
-  //       return obj.id;
-  //     });
+  const getMovieByActionGenre = async (genId) => {
+    try {
+      const res = await axios.get(`${BASE_URL}/get_movie_by_genre/${genId}`);
+      const ids = res.data.map((obj) => {
+        return obj.id;
+      });
 
-  //     let users = [];
-  //     let promises = [];
-  //     for (let i = 0; i < ids.length; i++) {
-  //       promises.push(
-  //         axios
-  //           .get(BASE_URL + "/get_movie_by_id/" + ids[i])
-  //           .then((response) => {
-  //             // do something with response
-  //             users.push(response.data);
-  //           })
-  //       );
-  //     }
-  //     Promise.all(promises).then(() => console.log(users));
+      let movieByGenre = [];
+      let promises = [];
+      for (let i = 0; i < ids.length; i++) {
+        promises.push(
+          axios
+            .get(BASE_URL + "/get_movie_by_id/" + ids[i])
+            .then((response) => {
+              // do something with response
+              movieByGenre.push(...response.data);
+            })
+        );
+      }
+      Promise.all(promises).then(() => setActionMovie(movieByGenre));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getMovieByDramaGenre = async (genId) => {
+    try {
+      const res = await axios.get(`${BASE_URL}/get_movie_by_genre/${genId}`);
+      const ids = res.data.map((obj) => {
+        return obj.id;
+      });
 
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // console.log(movieId);
-
-  // async function apiCalls() {
-  //   const calls = [1, 2, 3, 4, 5];
-  //   for (let call of calls) {
-  //     const result = await axios.get(`https://dummyjson.com/products/${call}`);
-  //     console.log(result.data);
-  //   }
-  // }
-
-  // async function fetchData() {
-  //   const data = [];
-  //   const arr = [1, 2, 3, 4, 5, 6];
-  //   for (let i = 1; i <= arr.length; i++) {
-  //     const response = await axios.get(`https://dummyjson.com/products/${i}`);
-  //     data.push(response.data);
-  //   }
-  //   console.log(data);
-  // }
-
+      let movieByGenre = [];
+      let promises = [];
+      for (let i = 0; i < ids.length; i++) {
+        promises.push(
+          axios
+            .get(BASE_URL + "/get_movie_by_id/" + ids[i])
+            .then((response) => {
+              // do something with response
+              movieByGenre.push(...response.data);
+            })
+        );
+      }
+      Promise.all(promises).then(() => setDramaMovie(movieByGenre));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    // apiCalls();
     getMovies();
-    // fetchData();
-    // getMovieByGenre();
+
+    getMovieByActionGenre(1);
+    getMovieByDramaGenre(2);
   }, []);
 
   return (
@@ -77,18 +81,18 @@ const Home = () => {
               Movie by Genra
             </p>
             <p className="border border-black px-3 rounded-md capitalize">
-              Drama
+              Action
             </p>
           </div>
         </div>
 
         <div className="md:px-[100px] mx-auto grid grid-cols-2 px-2 sm:grid-cols-4 md:grid-col-4 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies &&
-            movies.slice(0, 16).map((data, index) => (
+            actionMovie.slice(0, 16).map((data) => (
               <>
                 <Link
                   to={`/movie-details/${data.id}`}
-                  key={index}
+                  key={data.id}
                   className="w-full p-2 border rounded-lg shadow-md bg-white"
                 >
                   <div className=" mb-3">
@@ -111,17 +115,17 @@ const Home = () => {
               Movie by Genra
             </p>
             <p className="border border-black px-3 rounded-md capitalize">
-              action
+              Drama
             </p>
           </div>
         </div>
         <div className="md:px-[100px] mx-auto grid grid-cols-2 sm:grid-cols-4 md:grid-col-3 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies &&
-            movies.slice(0, 16).map((data, index) => (
+            dramaMovie.slice(0, 16).map((data, index) => (
               <>
                 <Link
                   to={`/movie-details/${data.id}`}
-                  key={index}
+                  key={data.id}
                   className="w-full p-2 border rounded-lg shadow-md bg-white"
                 >
                   <div className=" mb-3">

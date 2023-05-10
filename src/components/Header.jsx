@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
@@ -13,22 +15,21 @@ const Navbar = () => {
   const menuItems = (
     <>
       <li>
-        <Link href="/">Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link href="/">Movies</Link>
+        <Link to="/all-movies">Movies</Link>
       </li>
       <li>
-        <Link href="/">Genre</Link>
-      </li>
-      <li>
-        <Link href="/">Country</Link>
-      </li>
-      <li>
-        <Link href="/">Gallery</Link>
+        <Link to="/genre">Genre</Link>
       </li>
     </>
   );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/${searchText}`);
+  };
 
   return (
     <>
@@ -64,11 +65,15 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-start hidden sm:block">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-[280px] py-1 px-3 border rounded-2xl focus:outline-none"
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Search"
+              required
+              onChange={(e) => setSearchText(e.target.value)}
+              className="w-[280px] py-1 px-3 border rounded-2xl focus:outline-none"
+            />
+          </form>
         </div>
 
         <div className="navbar-start hidden lg:flex">

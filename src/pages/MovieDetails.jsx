@@ -8,7 +8,6 @@ import {
   getPerson,
 } from "../APIRequiest/movieApiRequest";
 import { useSelector } from "react-redux";
-import Ratings from "react-ratings-declarative";
 import Loader from "../components/Loader/Loader";
 import axios from "axios";
 import { BASE_URL } from "../utils/config";
@@ -141,22 +140,6 @@ const MovieDetails = () => {
                       </>
                     ))}
                   </ul>
-                </div>
-
-                <div className="mt-5 flex items-center gap-4">
-                  <p className="capitalize">ratings :</p>
-                  <Ratings
-                    rating={data.rating}
-                    widgetDimensions="20px"
-                    widgetSpacings="5px"
-                  >
-                    <Ratings.Widget widgetRatedColor="yellow" />
-                    <Ratings.Widget widgetRatedColor="yellow" />
-                    <Ratings.Widget widgetRatedColor="yellow" />
-                    <Ratings.Widget widgetRatedColor="yellow" />
-                    <Ratings.Widget widgetRatedColor="yellow" />
-                  </Ratings>
-                  <span>({data.rating})</span>
                 </div>
               </div>
             </div>

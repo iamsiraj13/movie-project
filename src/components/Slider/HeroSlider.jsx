@@ -25,9 +25,9 @@ export default function HeroSlider({ movies }) {
         className="mySwiper"
       >
         <div className="h-full">
-          {movies.map((movie, i) => (
+          {movies.map((movie) => (
             <>
-              <SwiperSlide key={i}>
+              <SwiperSlide key={movie.id}>
                 <Card movie={movie} />
               </SwiperSlide>
             </>

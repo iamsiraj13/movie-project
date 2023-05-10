@@ -1,7 +1,4 @@
-// get task by status
-
 import axios from "axios";
-
 import { BASE_URL } from "../utils/config";
 import store from "../redux/store";
 import {
@@ -11,6 +8,9 @@ import {
   getCommentsByMoviePending,
   getCommentsByMovieReject,
   getCommentsByMovieSuccess,
+  getGenrePending,
+  getGenreReject,
+  getGenreSuccess,
   getMovieDetailsPending,
   getMovieDetailsReject,
   getMovieDetailsSuccess,
@@ -19,6 +19,9 @@ import {
   getMovieSuccess,
   getPersonsPending,
   getPersonsSuccess,
+  getSearchPending,
+  getSearchReject,
+  getSearchSuccess,
 } from "../redux/stateSlice/movieSlice";
 
 /*=========================================== 
@@ -27,7 +30,6 @@ import {
 export const getMovies = () => {
   store.dispatch(getMoviePending());
   let url = `${BASE_URL}/get_movie/`;
-
   return axios
     .get(url)
     .then((res) => {
@@ -66,7 +68,6 @@ export const getMovieDetails = (id) => {
 export const getCastByMovie = (id) => {
   store.dispatch(getCastByMoviePending());
   let url = `${BASE_URL}/get_cast_by_movie/${id}/`;
-
   return axios
     .get(url)
     .then((res) => {
@@ -85,7 +86,6 @@ export const getCastByMovie = (id) => {
 export const getCommentsByMovie = (id) => {
   store.dispatch(getCommentsByMoviePending());
   let url = `${BASE_URL}/get_comment_by_movie/${id}/`;
-
   return axios
     .get(url)
     .then((res) => {
@@ -104,18 +104,51 @@ export const getCommentsByMovie = (id) => {
 export const getPerson = () => {
   store.dispatch(getPersonsPending());
   let url = `${BASE_URL}/get_person/`;
-  // console.log(cast_id + " ");
-  // const ID = cast_id.map((castid) => castid.id);
-
   return axios
     .get(url)
     .then((res) => {
-      // const result = res.data.filter((cast) => cast.id === ID);
-      // console.log(result);
       store.dispatch(getPersonsSuccess(res.data));
     })
     .catch((error) => {
       store.dispatch(getPerson(error.message));
+      console.log(error);
+      return false;
+    });
+};
+/*=========================================== 
+*  get searched movie 
+ ============================================*/
+
+export const getSearch = (searchText) => {
+  store.dispatch(getSearchPending());
+  let url = `${BASE_URL}/search/${searchText}/`;
+  return axios
+    .get(url)
+    .then((res) => {
+      store.dispatch(getSearchSuccess(res.data));
+    })
+    .catch((error) => {
+      store.dispatch(getSearchReject(error.message));
+      console.log(error);
+      return false;
+    });
+};
+/*=========================================== 
+*  get genre
+ ============================================*/
+
+export const getGenre = () => {
+  store.dispatch(getGenrePending());
+  let url = `${BASE_URL}/get_genre/`;
+
+  return axios
+    .get(url)
+    .then((res) => {
+      console.log(res.data);
+      store.dispatch(getGenreSuccess(res.data));
+    })
+    .catch((error) => {
+      store.dispatch(getGenreReject(error.message));
       console.log(error);
       return false;
     });

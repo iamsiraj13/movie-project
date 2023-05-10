@@ -2,10 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
-// import { useDispatch } from "react-redux";
-// import { userLogin } from "../../components/feature/slice/authSlice";
+import { PulseLoader } from "react-spinners";
 
 const Login = () => {
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const [state, setState] = useState({
     username: "",
@@ -21,13 +21,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
 
     try {
       const result = await axios.post(`${BASE_URL}/login/`, state);
+      setLoader(false);
       localStorage.setItem("token", result.data.token);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setLoader(false);
     }
   };
 
@@ -85,12 +87,22 @@ const Login = () => {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
+              {loader === true ? (
+                <>
+                  <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    <PulseLoader color="#fff" />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="submit"
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Sign in
+                  </button>
+                </>
+              )}
             </div>
           </form>
 
