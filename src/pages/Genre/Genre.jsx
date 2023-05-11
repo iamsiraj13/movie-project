@@ -11,7 +11,7 @@ const Genre = () => {
   }, []);
 
   return (
-    <div className="py-9 px-4 sm:px-[100px]">
+    <div className="py-9 px-4 sm:px-[100px] min-h-screen h-full">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {genres.map((data) => (
           <>

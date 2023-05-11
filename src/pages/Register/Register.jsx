@@ -115,6 +115,9 @@ const Register = () => {
               Login Here
             </Link>
           </p>
+          <p className="text-center mt-2 capitalize text-[12px] font-bold text-blue-500">
+            <Link to="/">back to home</Link>
+          </p>
         </div>
       </div>
     </>

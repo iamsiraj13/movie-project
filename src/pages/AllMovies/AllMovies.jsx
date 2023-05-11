@@ -23,11 +23,11 @@ const AllMovies = () => {
                     key={index}
                     className="w-full p-2 border rounded-lg shadow-md bg-white"
                   >
-                    <div className=" mb-3">
+                    <div className=" w-full h-[300px] mb-3">
                       <img
                         src={data.poster}
                         alt=""
-                        className="min-h-[150px] object-cover"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                     <h2 className="font-semibold">

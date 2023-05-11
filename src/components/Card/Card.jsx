@@ -8,7 +8,7 @@ const Card = ({ movie }) => {
           <img
             src={movie?.poster}
             alt="movie"
-            className="w-full h-auto   lg:h-[750px] object-cover"
+            className="w-full h-full lg:h-[750px]  object-cover object-top"
           />
         </figure>
 

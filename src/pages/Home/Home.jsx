@@ -16,7 +16,7 @@ const Home = () => {
     try {
       const res = await axios.get(`${BASE_URL}/get_movie_by_genre/${genId}`);
       const ids = res.data.map((obj) => {
-        return obj.id;
+        return obj.movie;
       });
 
       let movieByGenre = [];
@@ -40,7 +40,7 @@ const Home = () => {
     try {
       const res = await axios.get(`${BASE_URL}/get_movie_by_genre/${genId}`);
       const ids = res.data.map((obj) => {
-        return obj.id;
+        return obj.movie;
       });
 
       let movieByGenre = [];
@@ -93,13 +93,13 @@ const Home = () => {
                 <Link
                   to={`/movie-details/${data.id}`}
                   key={data.id}
-                  className="w-full p-2 border rounded-lg shadow-md bg-white"
+                  className="w-full   p-2 border rounded-lg shadow-md bg-white"
                 >
-                  <div className=" mb-3">
+                  <div className=" mb-3  h-[250px]">
                     <img
                       src={data.poster}
                       alt=""
-                      className="min-h-[150px] object-cover"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <h2 className="font-semibold">{data.title.slice(0, 10)}..</h2>
@@ -121,21 +121,21 @@ const Home = () => {
         </div>
         <div className="md:px-[100px] mx-auto grid grid-cols-2 sm:grid-cols-4 md:grid-col-3 lg:grid-cols-6 xl:grid-cols-8 gap-6">
           {movies &&
-            dramaMovie.slice(0, 16).map((data, index) => (
+            dramaMovie.slice(0, 16).map((data) => (
               <>
                 <Link
                   to={`/movie-details/${data.id}`}
                   key={data.id}
                   className="w-full p-2 border rounded-lg shadow-md bg-white"
                 >
-                  <div className=" mb-3">
+                  <div className=" w-full h-[250px] mb-3">
                     <img
                       src={data.poster}
                       alt=""
-                      className="min-h-[150px] object-cover"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <h2 className="font-semibold">{data.title.slice(0, 10)}..</h2>
+                  <h2 className="font-semibold">{data.title}..</h2>
                 </Link>
               </>
             ))}
