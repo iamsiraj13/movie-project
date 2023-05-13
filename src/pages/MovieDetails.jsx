@@ -5,7 +5,6 @@ import {
   getCommentsByMovie,
   getMovieDetails,
   getMovies,
-  getPerson,
 } from "../APIRequiest/movieApiRequest";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader/Loader";
@@ -19,20 +18,18 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [comment, setComment] = useState("");
 
-  const [castPerson, setCastPerson] = useState([]);
-
-  const { movies, persons, cast, loader, comments } = useSelector(
+  const { movies, cast, loader, comments } = useSelector(
     (state) => state.movies
   );
 
   const data = useSelector((state) => state.movies.movieDetails);
+  console.log(cast);
 
   useEffect(() => {
     getMovies();
     getMovieDetails(movieId);
     getCastByMovie(movieId);
     getCommentsByMovie(movieId);
-    getPerson();
   }, [movieId]);
 
   // post comment
@@ -67,37 +64,23 @@ const MovieDetails = () => {
     window.location.reload();
   };
 
-  useEffect(() => {
-    const ids = cast.map((obj) => {
-      return obj.person_id;
-    });
-    // Filter persons based on ids
-    const filteredPersons = persons.filter((person) => ids.includes(person.id));
-
-    // Create new array using filtered persons data
-    const newPersons = filteredPersons.map((person) => ({
-      name: person.name,
-      img: person.profile_pic,
-    }));
-
-    setCastPerson(newPersons);
-  }, [cast]);
-
   return (
     <>
-      <div className="bg-gradient-to-b from-[#0f1010] to-[#264653] w-full ">
+      <div className="bg-gradient-to-b from-[#0f1010] to-[#264653] w-full transition-all">
         {loader === true ? (
           <Loader />
         ) : (
           <>
-            <div className="lg:px-[100px] xl:px-[200px] py-8   w-full mx-auto  px-4  md:grid grid-cols-5 gap-6">
+            <div className="lg:px-[100px] xl:px-[200px] py-8   w-full mx-auto  px-4  md:grid grid-cols-5 gap-4 transition-all">
               <div className="  shadow-xl w-full h-[500px]  col-span-2 pb-6">
+                {/* movie thumbnail  */}
                 <img
                   src={data.poster}
-                  className="w-full  h-full object-cover object-left-top rounded-md border"
+                  className="   h-full object-cover object-left-top rounded-md border"
                   alt="Movie"
                 />
-                <div className="pb-6 flex justify-center gap-4">
+                {/* likes and dislikes button  */}
+                <div className="pb-6 flex items-center ml-12  gap-4  ">
                   <button
                     className="text-black bg-white border capitalize px-4 mt-2 rounded-md"
                     onClick={updateLike}
@@ -105,7 +88,7 @@ const MovieDetails = () => {
                     <span>{data.likes}</span> likes
                   </button>
                   <button
-                    className="text-black bg-white border capitalize px-4 mt-2 rounded-md"
+                    className="text-black bg-white border capitalize px-4 mt-2 rounded-md transition-all"
                     onClick={updateDisLike}
                   >
                     <span>{data.dislikes}</span> dislikes
@@ -113,7 +96,8 @@ const MovieDetails = () => {
                 </div>
               </div>
               <div className="  text-white col-span-3 pt-4">
-                <h2 className="card-title text-[55px] font-semibold leading-[1.0]">
+                {/* movie name  */}
+                <h2 className="card-title text-[25px] md:text-[55px] font-semibold leading-[1.0]">
                   {data.title}
                 </h2>
                 <p className=" mt-6   text-[16px] leading-6 text-slate-300">
@@ -123,19 +107,19 @@ const MovieDetails = () => {
                   <p>
                     <strong className="capitalize">cast :</strong>
                   </p>
-
+                  {/* movie cast name  */}
                   <ul className="flex flex-wrap gap-2">
-                    {castPerson.map((data) => (
+                    {cast.map((data) => (
                       <>
                         <li className="flex items-center gap-2 border rounded-full px-1 py-1">
                           <div className="w-[30px] h-[30px] rounded-full">
                             <img
-                              src={data?.img}
+                              src={data?.person_id.profile_pic}
                               alt=""
                               className="w-full h-full object-cover rounded-full border"
                             />
                           </div>
-                          <p className="text-sm">{data.name}</p>
+                          <p className="text-sm">{data.charachter_name}</p>
                         </li>
                       </>
                     ))}
@@ -207,7 +191,7 @@ const MovieDetails = () => {
             </>
           )}
         </div>
-
+        {/* Recommended section  */}
         <div className=" px-4 lg:px-[100px] xl:px-[250px] pb-6">
           <div className="">
             <h2 className="capitalize text-[30px] font-bold text-white mb-3">

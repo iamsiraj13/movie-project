@@ -23,6 +23,9 @@ const Navbar = () => {
       <li>
         <Link to="/genre">Genre</Link>
       </li>
+      <li>
+        <Link to="/person">All Person</Link>
+      </li>
     </>
   );
 

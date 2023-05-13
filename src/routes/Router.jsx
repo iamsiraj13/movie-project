@@ -12,6 +12,7 @@ import AllMovies from "../pages/AllMovies/AllMovies";
 import SearchPage from "../pages/SearchPage/SearchPage";
 import Genre from "../pages/Genre/Genre";
 import MovieByGenre from "../pages/MovieByGenre/MovieByGenre";
+import AllPerson from "../pages/AllPerson/AllPerson";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/cookie-policy",
         element: <PolicyPage />,
+      },
+      {
+        path: "/person",
+        element: <AllPerson />,
       },
     ],
   },
