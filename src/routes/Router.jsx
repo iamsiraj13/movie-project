@@ -13,6 +13,11 @@ import SearchPage from "../pages/SearchPage/SearchPage";
 import Genre from "../pages/Genre/Genre";
 import MovieByGenre from "../pages/MovieByGenre/MovieByGenre";
 import AllPerson from "../pages/AllPerson/AllPerson";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import CreateCast from "../pages/Dashboard/CreateCast";
+import CreatePerson from "../pages/Dashboard/CreatePerson";
+import CreateGenre from "../pages/Dashboard/CreateGenre";
+import AddMoviewithGenre from "../pages/Dashboard/AddMoviewithGenre";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +63,30 @@ const router = createBrowserRouter([
       {
         path: "/person",
         element: <AllPerson />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/add-movie",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/add-new-cast",
+        element: <CreateCast />,
+      },
+      {
+        path: "/dashboard/add-new-person",
+        element: <CreatePerson />,
+      },
+      {
+        path: "/dashboard/add-new-genre",
+        element: <CreateGenre />,
+      },
+      {
+        path: "/dashboard/add-movie-with-genre",
+        element: <AddMoviewithGenre />,
       },
     ],
   },

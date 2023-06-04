@@ -84,6 +84,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end flex flex-row gap-4 pr-2">
+          <Link to="/dashboard">Dashboard</Link>
           {token ? (
             <>
               <button onClick={logOut}>
