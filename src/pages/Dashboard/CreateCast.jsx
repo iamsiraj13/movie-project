@@ -6,50 +6,45 @@ import { BASE_URL } from "../../utils/config";
 import { HashLoader } from "react-spinners";
 import { getMovies, getPerson } from "../../APIRequiest/movieApiRequest";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 const CreateCast = () => {
   const [loader, setLoader] = useState(false);
   const { persons } = useSelector((state) => state.movies);
   const movies = useSelector((state) => state.movies.movies);
-
-  //   console.log(persons);
-
-  const [personName, setPersonName] = useState("");
-  const [personProfile, setPersonProfile] = useState("");
-  const [name, setName] = useState("");
-  const [movieId, setMovieId] = useState("");
+  // console.log(movies);
+  // console.log(persons);
 
   const [state, setState] = useState({
     movie_id: "",
+    person_id: "",
     charachter_name: "",
   });
 
-  console.log(persons);
   useEffect(() => {
     getMovies();
     getPerson();
   }, []);
 
-  //   const handleInput = (e) => {
-  //     setState({
-  //       ...state,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
+  const handleInput = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoader(true);
-    console.log(state);
 
-    // try {
-    //   const result = await axios.post(`${BASE_URL}/create_cast/`, state);
-    //   setLoader(false);
-    //   setState(null);
-    //   console.log(result);
-    // } catch (error) {
-    //   setLoader(false);
-    //   console.log(error);
-    // }
+    setLoader(true);
+
+    try {
+      const result = await axios.post(`${BASE_URL}/create_cast/`, state);
+      setLoader(false);
+      setState(null);
+      alert("Cast Added");
+    } catch (error) {
+      setLoader(false);
+    }
   };
 
   return (
@@ -72,26 +67,22 @@ const CreateCast = () => {
                   <label htmlFor="title">Movie Id</label>
                   <select
                     name="movie_id"
-                    id=""
                     className="px-3 py-2"
-                    onChange={(e) => setMovieId(e.target.value)}
+                    onChange={handleInput}
                   >
                     {movies.map((item, id) => (
-                      <option key={id} name="movie_id" value={item.id}>
+                      <option key={id} value={item.id}>
                         {item.title}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="flex flex-col mb-2">
-                  <label htmlFor="title">Select Person</label>
+                  <label htmlFor="title">Person</label>
                   <select
                     name="person_id"
-                    id=""
                     className="px-3 py-2"
-                    onChange={(e) => {
-                      setPersonName(e.target.value);
-                    }}
+                    onChange={handleInput}
                   >
                     {persons.map((item, id) => (
                       <option key={id} value={item.id}>
@@ -100,6 +91,7 @@ const CreateCast = () => {
                     ))}
                   </select>
                 </div>
+
                 <div className="flex flex-col mb-2">
                   <label htmlFor="title">Character Name</label>
                   <input

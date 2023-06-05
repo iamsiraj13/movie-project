@@ -5,6 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { HashLoader } from "react-spinners";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 const CreateGenre = () => {
   const [loader, setLoader] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -19,32 +20,27 @@ const CreateGenre = () => {
     });
   };
 
+  const loaction = useLocation();
+  console.log(loaction);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
     try {
       const result = await axios.post(`${BASE_URL}/create_genre/`, state);
       setLoader(false);
-      alert("Person Added");
       console.log(result);
       setSuccess(true);
       setState({
         name: "",
         profile_pic: "",
       });
+      alert("Genre Created");
     } catch (error) {
       setLoader(false);
       setSuccess(false);
     }
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (success === true) {
-        alert("New Genre Added");
-      }
-    }, 500);
-  }, []);
 
   return (
     <div>

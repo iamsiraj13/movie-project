@@ -11,8 +11,7 @@ const AddMoviewithGenre = () => {
   const [loader, setLoader] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const { movies } = useSelector((state) => state.movies);
-  const { genre } = useSelector((state) => state.movies);
+  const { movies, genre } = useSelector((state) => state.movies);
 
   const [state, setState] = useState({
     movie: "",
@@ -29,38 +28,25 @@ const AddMoviewithGenre = () => {
   useEffect(() => {
     getGenre();
     getMovies();
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
-    console.log(state);
 
-    // try {
-    //   const result = await axios.post(`${BASE_URL}/create_person/`, state);
-    //   setLoader(false);
-    //   alert("Person Added");
-    //   console.log(result);
-    //   setSuccess(true);
-    //   setState({
-    //     name: "",
-    //     profile_pic: "",
-    //   });
-    // } catch (error) {
-    //   setLoader(false);
-    //   setSuccess(false);
-
-    //   console.log(error);
-    // }
+    try {
+      const result = await axios.post(
+        `${BASE_URL}/addmovie_with_genre/`,
+        state
+      );
+      setLoader(false);
+      alert("Successfull");
+      setSuccess(true);
+    } catch (error) {
+      setLoader(false);
+      setSuccess(false);
+    }
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (success === true) {
-        alert("New Person Added");
-      }
-    }, 500);
-  }, []);
 
   return (
     <div>
@@ -80,7 +66,7 @@ const AddMoviewithGenre = () => {
               <form className="w-full" onSubmit={handleSubmit}>
                 <div className="flex flex-col mb-2">
                   <label htmlFor="title">Select Movie</label>
-                  <select onChange={handleInput}>
+                  <select name="movie" onChange={handleInput} className="p-4">
                     {movies.map((item, id) => (
                       <option key={id} value={item.id}>
                         {item.title}
@@ -90,10 +76,10 @@ const AddMoviewithGenre = () => {
                 </div>
                 <div className="flex flex-col mb-2">
                   <label htmlFor="title">Select Genre</label>
-                  <select onChange={handleInput}>
-                    {movies.map((item, id) => (
+                  <select name="genre" onChange={handleInput} className="p-4">
+                    {genre.map((item, id) => (
                       <option key={id} value={item.id}>
-                        {item.title}
+                        {item.genre_name}
                       </option>
                     ))}
                   </select>
