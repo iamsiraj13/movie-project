@@ -11,6 +11,14 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const admin = {
+    username: "israt",
+    password: "sdut0831",
+  };
+  const admin2 = {
+    username: "admin2",
+    password: "admin2",
+  };
 
   const handleInput = (e) => {
     setState({
@@ -24,10 +32,26 @@ const Login = () => {
     setLoader(true);
 
     try {
-      const result = await axios.post(`${BASE_URL}/login/`, state);
-      setLoader(false);
-      localStorage.setItem("token", result.data.token);
-      navigate("/");
+      if (
+        state.username === admin.username &&
+        state.password === admin.password
+      ) {
+        setLoader(false);
+        localStorage.setItem("user", admin.username);
+        navigate("/");
+      } else if (
+        state.username === admin2.username &&
+        state.password === admin2.password
+      ) {
+        setLoader(false);
+        localStorage.setItem("user2", admin2.username);
+        navigate("/");
+      } else {
+        const result = await axios.post(`${BASE_URL}/login/`, state);
+        setLoader(false);
+        localStorage.setItem("token", result.data.token);
+        navigate("/");
+      }
     } catch (error) {
       setLoader(false);
     }
