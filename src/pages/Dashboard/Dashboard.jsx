@@ -63,7 +63,7 @@ const Dashboard = () => {
                     name="title"
                     onChange={handleInput}
                     placeholder="Movie title"
-                    className="w-full p-3"
+                    className="w-full p-3 bg-white"
                   />
                 </div>
                 <div className="flex flex-col mb-2">
@@ -73,12 +73,17 @@ const Dashboard = () => {
                     // value={moment(state.release_date).format("YYYY-MM-DD")}
                     name="release_date"
                     onChange={handleInput}
-                    className="w-full p-3"
+                    className="w-full p-3 bg-white"
                   />
                 </div>
                 <div className="flex flex-col mb-2">
                   <label htmlFor="title">Overview</label>
-                  <textarea rows="10" name="overview" onChange={handleInput}>
+                  <textarea
+                    rows="10"
+                    name="overview"
+                    onChange={handleInput}
+                    className="bg-white p-2"
+                  >
                     Write Your Overview
                   </textarea>
                 </div>
@@ -89,7 +94,7 @@ const Dashboard = () => {
                     name="poster"
                     onChange={handleInput}
                     placeholder="Movie title"
-                    className="w-full p-3"
+                    className="w-full p-3 bg-white"
                   />
                 </div>
                 <div className="flex gap-4 w-full">
@@ -99,8 +104,8 @@ const Dashboard = () => {
                       type="number"
                       name="likes"
                       onChange={handleInput}
-                      placeholder="Movie title"
-                      className="w-full p-3"
+                      placeholder="Likes"
+                      className="w-full p-3 bg-white"
                     />
                   </div>
                   <div className="flex flex-col mb-2 w-1/2">
@@ -109,8 +114,8 @@ const Dashboard = () => {
                       type="number"
                       name="dislikes"
                       onChange={handleInput}
-                      placeholder="Movie title"
-                      className="w-full p-3"
+                      placeholder="Dislikes"
+                      className="w-full p-3 bg-white"
                     />
                   </div>
                 </div>

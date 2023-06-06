@@ -74,7 +74,7 @@ const CreatePerson = () => {
                     name="name"
                     onChange={handleInput}
                     placeholder="Person Name"
-                    className="w-full p-3"
+                    className="w-full p-3 bg-white"
                   />
                 </div>
                 <div className="flex flex-col mb-2">
@@ -84,7 +84,7 @@ const CreatePerson = () => {
                     name="profile_pic"
                     onChange={handleInput}
                     placeholder="Person Name"
-                    className="w-full p-3"
+                    className="w-full p-3 bg-white"
                   />
                 </div>
 

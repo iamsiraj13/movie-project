@@ -91,7 +91,9 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end flex flex-row gap-4 pr-2">
-          {user || user2 ? <Link to="/dashboard">Dashboard</Link> : null}
+          {!token && (user || user2) ? (
+            <Link to="/dashboard">Dashboard</Link>
+          ) : null}
           {token || user || user2 ? (
             <>
               <button onClick={logOut}>
